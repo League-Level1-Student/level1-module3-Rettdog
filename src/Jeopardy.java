@@ -26,9 +26,7 @@ import java.io.File;
 /* This recipe is to be used with the Jeopardy Handout: http://bit.ly/1bvnvd4 */
 
 public class Jeopardy implements ActionListener {
-	private JButton firstButton;
-	private JButton secondButton;
-	private JButton thirdButton, fourthButton;
+	private JButton firstButton, secondButton,thirdButton, fourthButton, fifthButton;
 	
 	private JPanel quizPanel;
 	int score = 0;
@@ -52,25 +50,35 @@ frame.setVisible(true);
 		JPanel panel = new JPanel();
 		
 		// 4. Add the header component to the quizPanel
-		quizPanel.add(createHeader("Hello"));
+		quizPanel.add(createHeader("Random Facts"));
 		// 5. Add the quizPanel to the frame
 frame.add(quizPanel);
 		
 		// 6. Use the createButton method to set the value of firstButton 
-	firstButton = createButton("100");
+	firstButton = createButton("200");
 	// 7. Add the firstButton to the quizPanel
 		quizPanel.add(firstButton);
 		// 8. Write the code inside the createButton() method below. Check that your game looks like Figure 1 in the Jeopardy Handout - http://bit.ly/1bvnvd4.
 		
 		// 9. Use the secondButton variable to hold a button using the createButton method
-		
+		secondButton = createButton("400");
 		// 10. Add the secondButton to the quizPanel
-		
+		quizPanel.add(secondButton);
 		// 11. Add action listeners to the buttons (2 lines of code)
-	
+		thirdButton=createButton("600");
+		fourthButton = createButton("800");
+		fifthButton = createButton("1000");
+		quizPanel.add(thirdButton);
+		quizPanel.add(fourthButton);
+		quizPanel.add(fifthButton);
+	firstButton.addActionListener(this);
+	secondButton.addActionListener(this);
+	thirdButton.addActionListener(this);
+	fourthButton.addActionListener(this);
+	fifthButton.addActionListener(this);
 
 		// 12. Fill in the actionPerformed() method below
-				
+		
 		frame.pack();
 		quizPanel.setLayout(new GridLayout(buttonCount+1, 3));
 		frame.add(makeScorePanel(), BorderLayout.NORTH);
@@ -100,34 +108,56 @@ frame.add(quizPanel);
 
 	public void actionPerformed(ActionEvent arg0) {
 		// Remove this temporary message:
-		JOptionPane.showMessageDialog(null,"pressed " + ((JButton)arg0.getSource()).getText() + " button");
+		
 
 		// Use the method that plays the jeopardy theme music.
-
+playJeopardyTheme();
 		JButton buttonPressed = (JButton) arg0.getSource();
 		// If the buttonPressed was the firstButton
+		if(buttonPressed.equals(firstButton)) {
+			
 		
 			// Call the askQuestion() method
-			
+			askQuestion("What is the newest iPhone?","iPhone X",200);
 			// Fill in the askQuestion() method. When you play the game, the score should change.
-		
+		}
 		// Or if the buttonPressed was the secondButton
-
+		else if(buttonPressed.equals(secondButton)) {
 
 			// Call the askQuestion() method with a harder question
-			
-		
+			askQuestion("How many different nucleotides are there?","5",400);
+		}else if(buttonPressed.equals(thirdButton)) {
+
+			// Call the askQuestion() method with a harder question
+			askQuestion("What is Lionel Messi's jersey number?","10",600);
+		}else if(buttonPressed.equals(fourthButton)) {
+
+			// Call the askQuestion() method with a harder question
+			askQuestion("Do you like squirrels?","Yes",800);
+		}else if(buttonPressed.equals(fifthButton)) {
+
+			// Call the askQuestion() method with a harder question
+			askQuestion("What does Owen call Smurfs?","Blue Tumors",1000);
+		}
 		// Clear the button text (set the button text to nothing)
-		
+		buttonPressed.setText(null);
 	}
 
 	private void askQuestion(String question, String correctAnswer, int prizeMoney) {
 		// Remove this temporary message
-		JOptionPane.showMessageDialog(null, "this is where the question will be asked");
+		String answer = JOptionPane.showInputDialog(question);
 		// Use a pop up to ask the user the question
 	
 		// If the answer is correct
-		
+		if(answer.equalsIgnoreCase(correctAnswer)) {
+			score+=prizeMoney;
+			updateScore();
+			JOptionPane.showMessageDialog(null, "Correct!");
+		}else {
+			score-=prizeMoney;
+			updateScore();
+			JOptionPane.showMessageDialog(null, "Incorrect");
+		}
 			// Increase the score by the prizeMoney
 			
 			// Call the updateScore() method
