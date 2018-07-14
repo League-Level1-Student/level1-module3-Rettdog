@@ -1,5 +1,31 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PigLatinTranslator {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class PigLatinTranslator implements ActionListener {
+	JFrame frame=new JFrame();
+	JPanel panel = new JPanel();
+	JTextField english = new JTextField(30);
+	JTextField latin = new JTextField(30);
+	JButton button = new JButton();
+	public static void main(String[] args) {
+		PigLatinTranslator latiner = new PigLatinTranslator();
+		latiner.start();
+	}
+	private void start() {
+		button.setText("translate");
+		panel.add(english);
+		panel.add(button);
+		panel.add(latin);
+		frame.add(panel);
+		frame.pack();
+		frame.setVisible(true);
+		button.addActionListener(this);
+	}
 	/**
      * Method to test whether a character is a letter or not.
      * @param c The character to test
@@ -64,4 +90,15 @@ public class PigLatinTranslator {
                     return i;
                return 0;
      }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String words = english.getText();
+		PigLatinTranslator piggy = new PigLatinTranslator();
+		if(words.contains(" ")) {
+			latin.setText(piggy.translate(words));
+		}else {
+			latin.setText(piggy.pigWord(words));
+		}
+		
+	}
 }
