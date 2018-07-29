@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SlotMachine implements ActionListener {
@@ -37,7 +38,9 @@ public class SlotMachine implements ActionListener {
 		button.addActionListener(this);
 	}
 	public void Spin() {
-		frame.remove(label1);
+		panel.remove(label1);
+		panel.remove(label2);
+		panel.remove(label3);
 		//
 		//
 		// Work on this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -54,6 +57,7 @@ public class SlotMachine implements ActionListener {
 		}else {
 			label1 = loadImage("sevens.png");
 		}
+		panel.add(label1);
 		
 		if(second==2) {
 			label2 = loadImage("cherry.jpg");
@@ -63,6 +67,7 @@ public class SlotMachine implements ActionListener {
 			label2 = loadImage("sevens.png");
 		}
 		
+		panel.add(label2);
 		if(third==2) {
 			label3 = loadImage("cherry.jpg");
 		}else if (third==1){
@@ -70,7 +75,11 @@ public class SlotMachine implements ActionListener {
 		}else {
 			label3 = loadImage("sevens.png");
 		}
+		panel.add(label3);
 		frame.pack();
+		if(first==second&&second==third) {
+			JOptionPane.showMessageDialog(null, "You win!!!!!!!!");
+		}
 	}
 	private JLabel loadImage(String fileName) {
 		URL imageURL = getClass().getResource(fileName);
